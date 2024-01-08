@@ -99,6 +99,6 @@ body{
 }
 
 .slider_nav .active{
-    transform: scale(150%);
+    transform: scale(130%);
     opacity: 1;
 }
