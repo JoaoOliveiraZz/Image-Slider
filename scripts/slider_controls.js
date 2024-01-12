@@ -1,8 +1,8 @@
-let images = document.querySelectorAll("img");
 let slider_nav_controls = document.querySelectorAll(".slider_nav_control");
 let slider = document.querySelector(".slider");
 
 slider.addEventListener("scroll", () => {
+  let images = document.querySelectorAll("img");
   images.forEach((img) => {
     let left = slider.scrollLeft;
     let offset = img.offsetLeft;
