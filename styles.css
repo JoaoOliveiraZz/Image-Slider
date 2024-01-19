@@ -31,7 +31,6 @@ body {
 .slider {
   display: flex;
   overflow-x: hidden;
-  overscroll-behavior: contain;
   aspect-ratio: 16/9;
   scroll-snap-type: inline mandatory;
   scroll-behavior: smooth;
@@ -235,6 +234,36 @@ dialog[closing]::backdrop {
   border-radius: 10px;
   position: absolute;
   width: 92%;
+}
+
+.edit_slider {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 8rem;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.image {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  scroll-snap-align: start;
+  min-height: 2rem;
+}
+
+.image button {
+  min-width: 7%;
+  border: none;
+  border-radius: 10px;
+  background: #f52819d7;
+  margin-inline: 2%;
+  cursor: pointer;
+}
+
+.image h2 {
+  font-size: 1.3em;
 }
 
 /* Keyframes */
