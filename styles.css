@@ -189,6 +189,11 @@ dialog[closing]::backdrop {
   flex: 1;
 }
 
+.image_link {
+  border-left: 2px solid #706d5e;
+  border-radius: 0;
+}
+
 .submit_new_image {
   border: 0;
   width: 20%;

@@ -17,21 +17,28 @@ closeModalButton.addEventListener("click", () => {
 // Add new Images
 
 const submitNewImage = document.querySelector('.submit_new_image')
-const newImage = document.querySelector('.add_new_image_input')
+const newImage = document.querySelector('.image_link')
+const newImageTitle = document.querySelector('.image_title')
 
 submitNewImage.addEventListener('click', () => {
-    sliderImages.push(newImage.value)
+    sliderImages.push({url: newImage.value, title: newImageTitle.value})
     newImage.value = ''
+    newImageTitle.value = ''
     loadImages()
+    changeSliderTitle(getImageOnScreen())
 })
 
 function loadImages(){
     const imagesHtml = sliderImages.map((image, index) => {
-        return `<img id='image-${index+1}' src='${image}' />`
+        return `<img id='image-${index+1}' src='${image.url}' />`
     }).join('')
 
     slider.innerHTML = imagesHtml
     renderControls();
+}
+
+function getImageOnScreen(){
+  return window.location.href.split('/').reverse()[0].split('#')[1]
 }
 
 
