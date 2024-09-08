@@ -3,7 +3,8 @@ const slider = document.querySelector(".slider");
 const imageTitle = document.querySelector('.header_title')
 let sliderImages = [];
 
-window.addEventListener('load', resetToFirstImageOnReload())
+window.addEventListener('load', resetSlider())
+
 
 slider.addEventListener("scroll", () => {
   let slider_nav_controls = document.querySelectorAll(".slider_nav_control");
@@ -17,21 +18,54 @@ slider.addEventListener("scroll", () => {
 });
 
 function renderControls (){
-    let activeId = getImageOnScreen();
+    let activeId = window.location.href.split("/").reverse()[0].split("#")[1];
+    console.log(activeId)
     const slider_nav_controls = sliderImages.map((item, index) => {
       return `<a href="#image-${index+1}" class="slider_nav_control ${(`image-${index+1}` === activeId || (sliderImages.length === 1 && index+1 === 1)) ? 'active' : ''}"></a>`
     }).join('')
 
-    if(sliderImages.length === 1) resetToFirstImageOnReload
+    if(sliderImages.length === 1) resetSlider
 
     slider_nav.innerHTML = slider_nav_controls
 }
 
 function changeSliderTitle(imageId){
-  imageTitle.textContent = sliderImages[parseInt(imageId.split('-')[1]) - 1].title
+  const index = parseInt(imageId.split('-')[1]) === 0
+      ?
+      parseInt(imageId.split('-')[1])
+      :
+      parseInt(imageId.split('-')[1]) - 1
+
+  console.log(sliderImages, index, imageId)
+  imageTitle.textContent = sliderImages[
+      index
+  ].title
 }
 
-function resetToFirstImageOnReload(){
-  window.location.href = 'index.html#image-1'
+function resetSlider(){
+  sliderImages.push({url: './assets/AddNew.png', title: 'ImageSlider'})
+  
+  const imagesHtml = sliderImages
+    .map((image, index) => {
+      return `<img id='image-${index + 1}' src='${image.url}' />`;
+    })
+    .join("");
+
+  slider.innerHTML = imagesHtml;
+  const registers = sliderImages
+    .map((line, index) => {
+      return `
+        <div class='image image-${index + 1}'>
+            <h2>${line.title}</h2>
+            <button onClick={deleteImage(${index})}><i class="fa fa-trash fa-lg"></i></button> 
+        </div>
+      `;
+    })
+    .join("");
+
+  document.querySelector(".edit_slider").innerHTML = registers;
+  renderControls();
+  changeSliderTitle( window.location.href.split("/").reverse()[0].split("#")[1]);
+  window.href = 'index.html#image-0'
 }
 
